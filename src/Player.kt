@@ -6,6 +6,7 @@ class Player (
     override var equipment: List<IEquipment>,
     override var endurance: Int = 50 + stats.persistence*5
 ): IPlayer {
+
     override fun evasion(): Int = 10 + stats.reaction
 
     override fun parry(): Int {
@@ -26,6 +27,20 @@ class Player (
             }
         }
         return 10 + stats.strength + totalArmor;
+    }
+
+    override fun weaponBonus(): Int {
+      var weaponBonus = 0;
+        equipment.forEach { item ->
+            if (item is Weapon && item.equipped && item.fencing) {
+                weaponBonus = if (item.fencing) {
+                    stats.coordination + item.stat
+                } else {
+                    stats.strength + item.stat
+                }
+            }
+        }
+        return weaponBonus
     }
 
     override fun stamina(): Int = 10 + stats.persistence

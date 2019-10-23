@@ -3,21 +3,23 @@ import kotlin.reflect.full.memberProperties
 
 fun main() {
     var krionel =  Player(
-            "Krionel",
-            PlayerStats(3,3,3,3,3),
-            equipment = listOf(Armor("Chain-mail","Heavy",5,true),
-                    Weapon("Club", "Blunt", 3, true),
-                    Armor("Chain-leggings", "Heavy", 5, true),
-                    Shield ("TheBarrier", "Shield", 3, false))
+        "Krionel",
+        PlayerStats(3,3,3,3,3),
+        equipment = listOf(Armor("Chain-mail","Heavy",5,true),
+            Weapon("Club", "Blunt", 3, true, fencing = false),
+            Armor("Chain-leggings", "Heavy", 5, true),
+            Shield ("TheBarrier", "Shield", 3, false))
     )
+
     var krionel2 =  Player(
-            "Krionel",
-            PlayerStats(3,3,3,3,3),
-            equipment = listOf(Armor("Chain-mail","Heavy",5,true),
-                    Weapon("Club", "Blunt", 3, true),
-                    Armor("Chain-leggings", "Heavy", 5, true),
-                    Shield ("TheBarrier", "Shield", 3, false))
+        "Krionel",
+        PlayerStats(3,3,3,3,3),
+        equipment = listOf(Armor("Chain-mail","Heavy",5,true),
+            Weapon("Club", "Blunt", 3, true, fencing = false),
+            Armor("Chain-leggings", "Heavy", 5, true),
+            Shield ("TheBarrier", "Shield", 3, false))
     )
+
     val required = arrayOf(
             hashMapOf(
                     1 to Pair(3, 4),

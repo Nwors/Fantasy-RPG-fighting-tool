@@ -12,4 +12,5 @@ interface IPlayer {
     fun stamina(): Int
     fun fortitude(): Int
     fun speed(): Int
+    fun weaponBonus(): Int
 }
