@@ -4,6 +4,7 @@ interface IPlayer {
     val stats: Stats
     var weapon: IWeapon
     var armor: IArmor
+    var shield: IArmor
     var abilities: List<IAbility>
 
     fun updateStats()

@@ -1,5 +1,6 @@
 
 interface IWeapon {
+    val name: String
     val type: String
-    var weaponStat: Int
+    var stat: Int
 }

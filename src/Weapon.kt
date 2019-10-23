@@ -1,3 +1,6 @@
 
-class Weapon(override val type: String, override var weaponStat: Int) : IWeapon {
+class Weapon(
+        override val name: String,
+        override val type: String,
+        override var stat: Int): IWeapon {
 }
