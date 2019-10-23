@@ -1,11 +1,15 @@
 
 interface IPlayer {
     val name: String
-    val stats: Stats
-    var weapon: IWeapon
-    var armor: IArmor
-    var shield: IArmor
+    val stats: PlayerStats
     var abilities: List<IAbility>
+    var equipment: List<IEquipment>
+    var endurance: Int
 
-    fun updateStats()
+    fun evasion(): Int
+    fun parry(): Int
+    fun armour(): Int
+    fun stamina(): Int
+    fun fortitude(): Int
+    fun speed(): Int
 }
