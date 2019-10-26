@@ -22,16 +22,16 @@ fun main() {
 
     val required = arrayOf(
             hashMapOf(
-                    1 to Pair(3, 4),
-                    2 to Pair(3, 5)
+                    PLAYER_STAT_COORDINATION to Comparison(MORE_THAN, 2),
+                    PLAYER_STAT_PERSISTENCE to Comparison(EQUAL_TO, 3)
             ), hashMapOf()
     )
     val effect = arrayOf(
             hashMapOf(
-                    7 to hashMapOf(1 to 3),
-                    8 to hashMapOf(2 to 5, 7 to 8)
+                    7 to ParamEffect(listOf(hashMapOf(1 to 3)), 5),
+                    8 to ParamEffect(listOf(hashMapOf(2 to 5), hashMapOf(7 to 8)), 5)
             ), hashMapOf()
     )
-    val ability = Ability("magic", true, false, true, required, effect);
-    ability.conditionFulfiled(krionel, krionel2)
+    val ability = Ability("magic", true, false, true, required, effect)
+    println(ability.conditionFulfiled(krionel, krionel2))
 }
