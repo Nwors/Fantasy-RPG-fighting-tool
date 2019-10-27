@@ -16,14 +16,8 @@ class Ability : IAbility {
         this.stacks = stacks
         this.required = required
         this.effect = effect
-        if (name.isEmpty())
-            throw Exception("Empty ability name")
-        if (!(affectsSelf || affectsOther))
-            throw Exception("Affects nobody")
-        if (required.size != NUMBER_OF_PARAM_TARGETS)
-            throw Exception("Incorrect number of required stats' targets")
-        if (effect.size != MAX_NUMBER_OF_AFFECTED_TARGETS)
-            throw Exception("Incorrect number of effect stats' targets")
+
+        checkFields()
     }
 
     constructor(name: String, abilities: List<IAbility>) {
@@ -45,6 +39,7 @@ class Ability : IAbility {
             }
         }
         // No effect implemented
+        checkFields()
     }
 
     override val name: String
@@ -54,17 +49,28 @@ class Ability : IAbility {
     override val required: Array<HashMap<Int, Comparison>>
     override val effect: Array<HashMap<Int, ParamEffect>>
 
+    fun checkFields() {
+        if (name.isEmpty())
+            throw Exception("Empty ability name")
+        if (!(affectsSelf || affectsOther))
+            throw Exception("Affects nobody")
+        if (required.size != NUMBER_OF_PARAM_TARGETS)
+            throw Exception("Incorrect number of required stats' targets")
+        if (effect.size != MAX_NUMBER_OF_AFFECTED_TARGETS)
+            throw Exception("Incorrect number of effect stats' targets")
+    }
+
     fun getReflectedList(player: IPlayer): List<Int> {
         val res = mutableListOf<Int>()
         var param = (player::class.memberProperties.toList()[REFLECTION_ENDURANCE].call(player))
-        if (param is Int) res.add(param) else throw Exception("Reflection exception- not Int encountered")
+        if (param is Int) res.add(param) else throw Exception("Reflection exception- not Int encountered in properties")
         for(ind in PLAYER_STATS_MEMBERS) {
             param = PlayerStats::class.memberProperties.toList()[ind].call(player.stats)
-            if (param is Int) res.add(param) else throw Exception("Reflection exception- not Int encountered")
+            if (param is Int) res.add(param) else throw Exception("Reflection exception- not Int encountered in stats")
         }
         for(ind in PLAYER_FUNCTIONS) {
             param = player::class.functions.toList()[ind].call(player)
-            if (param is Int) res.add(param) else throw Exception("Reflection exception- not Int encountered")
+            if (param is Int) res.add(param) else throw Exception("Reflection exception- not Int encountered in functions")
         }
         return res
     }

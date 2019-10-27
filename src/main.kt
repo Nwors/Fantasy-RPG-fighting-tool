@@ -1,7 +1,17 @@
 import kotlin.reflect.full.functions
+import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.full.memberProperties
 
 fun main() {
+    Player::class.memberFunctions.forEach {
+        println(it)
+    }
+
+    println("---------------")
+
+    IPlayer::class.memberProperties.forEach {
+        println(it)
+    }
 
     var loras =  Player(
         "Loras",
@@ -16,9 +26,7 @@ fun main() {
         equipment = listOf(Weapon("Hands", "Piercing", 6, true,false ), Armor("Chain-Mail", "Heavy",5, equipped = true))
     )
 
-
-FightingTool.fight(loras,lanadel);
-
+    FightingTool.fight(loras, lanadel)
 
     val required = arrayOf(
             hashMapOf(
@@ -34,5 +42,4 @@ FightingTool.fight(loras,lanadel);
     )
     val ability = Ability("magic", true, false, true, required, effect)
     println(ability.conditionFulfiled(loras, lanadel))
-
 }

@@ -4,50 +4,45 @@ class Player (
     override val stats: PlayerStats,
     override var abilities: List<IAbility> = emptyList(),
     override var equipment: List<IEquipment> = emptyList(),
-    override var endurance: Int = 50 + stats.persistence*5
+    override var endurance: Int = 50 + stats.persistence * 5
 ): IPlayer {
-    override var alive = true
-    override var stunned = false
+    private val conditions = Condition()
 
-    override fun evasion(): Int = 10 + stats.reaction
+    override fun isAlive() = conditions.alive
+    override fun isStunned() = conditions.stunned
+
+    override fun getKilled() { conditions.alive = false }
+    override fun getStunned() { conditions.stunned = true }
+
+    override fun evasion() = 10 + stats.reaction
 
     override fun parry(): Int {
-        var shieldBonus = 0;
-        equipment.forEach {item ->
-            if (item is Shield && item.equipped) {
-                shieldBonus += item.stat
-            }
-        }
+        val shieldBonus = equipment.filter{
+            it is Shield && it.equipped }.map{
+            it.stat }.fold(0) {
+            acc, shieldStat -> acc + shieldStat }
         return 10 + stats.coordination + shieldBonus
     }
 
     override fun armour(): Int {
-        var totalArmor = 0
-        equipment.forEach {item ->
-            if (item is Armor && item.equipped) {
-                totalArmor += item.stat
-            }
-        }
-        return 10 + stats.strength + totalArmor;
+        val totalArmor = equipment.filter {
+            it is Armor && it.equipped }.map {
+            it.stat }.fold(0) {
+            acc, armorStat -> acc + armorStat }
+        return 10 + stats.strength + totalArmor
     }
 
     override fun weaponBonus(): Int {
-      var weaponBonus = 0;
-        equipment.forEach { item ->
-            if (item is Weapon && item.equipped) {
-                weaponBonus = if (item.fencing) {
-                    stats.coordination + item.stat
-                } else {
-                    stats.strength + item.stat
-                }
-            }
-        }
+        val weaponBonus = equipment.filter {
+            it is Weapon && it.equipped }.map {
+            it.stat + if((it as Weapon).fencing) stats.coordination else stats.strength }.fold(0) {
+            acc, weaponStat -> acc + weaponStat }
         return 10 + weaponBonus
     }
 
-    override fun stamina(): Int = 10 + stats.persistence
+    override fun stamina() = 10 + stats.persistence
 
-    override fun fortitude(): Int = 10 + stats.will
+    override fun fortitude() = 10 + stats.will
 
-    override fun speed(): Int = 4 + stats.coordination / 3
+    override fun speed() = 4 + stats.coordination / 3
 }

@@ -5,8 +5,6 @@ interface IPlayer {
     var abilities: List<IAbility>
     var equipment: List<IEquipment>
     var endurance: Int
-    var alive: Boolean
-    var stunned: Boolean
 
     fun evasion(): Int
     fun parry(): Int
@@ -15,4 +13,9 @@ interface IPlayer {
     fun fortitude(): Int
     fun speed(): Int
     fun weaponBonus(): Int
+
+    fun isStunned(): Boolean
+    fun isAlive(): Boolean
+    fun getKilled()
+    fun getStunned()
 }
