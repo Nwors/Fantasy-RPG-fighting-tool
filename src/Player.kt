@@ -3,9 +3,11 @@ class Player (
     override val name: String,
     override val stats: PlayerStats,
     override var abilities: List<IAbility> = emptyList(),
-    override var equipment: List<IEquipment>,
+    override var equipment: List<IEquipment> = emptyList(),
     override var endurance: Int = 50 + stats.persistence*5
 ): IPlayer {
+    override var alive = true
+    override var stunned = false
 
     override fun evasion(): Int = 10 + stats.reaction
 
@@ -32,7 +34,7 @@ class Player (
     override fun weaponBonus(): Int {
       var weaponBonus = 0;
         equipment.forEach { item ->
-            if (item is Weapon && item.equipped && item.fencing) {
+            if (item is Weapon && item.equipped) {
                 weaponBonus = if (item.fencing) {
                     stats.coordination + item.stat
                 } else {
@@ -40,7 +42,7 @@ class Player (
                 }
             }
         }
-        return weaponBonus
+        return 10 + weaponBonus
     }
 
     override fun stamina(): Int = 10 + stats.persistence

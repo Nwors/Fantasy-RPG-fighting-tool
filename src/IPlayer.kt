@@ -5,6 +5,8 @@ interface IPlayer {
     var abilities: List<IAbility>
     var equipment: List<IEquipment>
     var endurance: Int
+    var alive: Boolean
+    var stunned: Boolean
 
     fun evasion(): Int
     fun parry(): Int
