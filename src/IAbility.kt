@@ -4,13 +4,13 @@ interface IAbility {
     val required: Array<
             HashMap<
                     Int, // Param
-                    Pair<Int, Int> // Mode (>, <, >=, <=, ==) and number to compare with
+                    Comparison
                     >
             >
     val effect: Array<
             HashMap<
                     Int, // Param
-                    HashMap<Int, Int> // EffectID and Effect's power
+                    ParamEffect
                     >
             >
     val stacks: Boolean
